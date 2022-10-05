@@ -1,0 +1,15 @@
+name: test reusing reusable workflow
+
+on:
+  workflow_call:
+
+jobs:
+  test:
+    uses: sumup/payments-reusable-workflows/.github/workflows/build.yaml@0.10.0
+    with:
+      slack_message_format: short
+      slack_channel: gh-actions-test-app
+      test_commands: |
+        go run mage.go -v lint
+        go run mage.go -v test
+    secrets: inherit
